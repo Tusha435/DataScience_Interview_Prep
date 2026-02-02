@@ -316,6 +316,130 @@ npm run lint
 2. Verify RLS policies
 3. Check browser network tab for API errors
 
+## Step 6: PWA & Mobile Installation
+
+This application is a Progressive Web App (PWA) that can be installed on mobile devices and desktops for a native app-like experience.
+
+### 6.1 How Users Can Install the PWA
+
+**On Android (Chrome):**
+1. Visit your deployed site in Chrome
+2. Tap the "Add to Home Screen" prompt that appears, OR
+3. Tap the three-dot menu > "Install app" or "Add to Home screen"
+4. The app will be added to the home screen with the Interview Prep icon
+
+**On iOS (Safari):**
+1. Visit your deployed site in Safari
+2. Tap the Share button (square with arrow)
+3. Scroll down and tap "Add to Home Screen"
+4. Tap "Add" in the top right corner
+
+**On Desktop (Chrome/Edge):**
+1. Visit your deployed site
+2. Click the install icon in the address bar, OR
+3. Click the three-dot menu > "Install Interview Prep"
+
+### 6.2 PWA Features
+
+- **Offline Support**: Basic pages are cached for offline viewing
+- **Install Prompt**: Users are prompted to install the app on supported browsers
+- **App-like Experience**: Runs in standalone mode without browser UI
+- **Fast Loading**: Assets are cached for quick subsequent loads
+
+### 6.3 Customizing PWA Icons
+
+To use custom icons, replace the placeholder icons in `/public/icons/`:
+
+```bash
+# Required icon sizes
+icon-72x72.png
+icon-96x96.png
+icon-128x128.png
+icon-144x144.png
+icon-152x152.png
+icon-192x192.png
+icon-384x384.png
+icon-512x512.png
+```
+
+You can use tools like:
+- [PWA Asset Generator](https://github.com/nickmessing/pwa-asset-generator)
+- [RealFaviconGenerator](https://realfavicongenerator.net/)
+- [Maskable.app](https://maskable.app/) for maskable icons
+
+### 6.4 Testing PWA Features
+
+1. Open Chrome DevTools (F12)
+2. Go to Application > Manifest to verify manifest loading
+3. Go to Application > Service Workers to verify SW registration
+4. Use Lighthouse (Audits tab) to run PWA audit
+
+## Step 7: Vercel Deployment Tips
+
+### 7.1 Automatic Deployments
+
+Vercel automatically deploys:
+- **Production**: When you push to `main` or `master` branch
+- **Preview**: When you create a pull request
+
+### 7.2 Environment Variable Scopes
+
+Configure variables for different environments:
+
+| Scope | Use Case |
+|-------|----------|
+| Production | Live site only |
+| Preview | PR deployments |
+| Development | Local `vercel dev` |
+
+### 7.3 Build Settings
+
+Recommended Vercel settings for this project:
+
+| Setting | Value |
+|---------|-------|
+| Framework Preset | Next.js |
+| Build Command | `npm run build` |
+| Output Directory | `.next` |
+| Install Command | `npm install` |
+| Node.js Version | 18.x or 20.x |
+
+### 7.4 Optimizing Performance
+
+Enable these Vercel features for better performance:
+
+1. **Edge Functions**: For API routes (automatic with Next.js)
+2. **Image Optimization**: Enable in project settings
+3. **Analytics**: Enable Vercel Analytics for performance insights
+4. **Speed Insights**: Track Core Web Vitals
+
+### 7.5 CI/CD with GitHub Actions (Optional)
+
+Create `.github/workflows/ci.yml`:
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+```
+
 ## Support
 
 For additional help:
@@ -323,4 +447,5 @@ For additional help:
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Vercel Documentation](https://vercel.com/docs)
 - [Supabase Documentation](https://supabase.com/docs)
+- [PWA Documentation](https://web.dev/progressive-web-apps/)
 - [GitHub Issues](https://github.com/yourusername/interview-prep-platform/issues)

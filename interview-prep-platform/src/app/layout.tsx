@@ -1,9 +1,11 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { AuthProvider } from "@/context/AuthContext"
 import { Toaster } from "@/components/ui/toaster"
+import { PWAProvider } from "@/components/common/PWAProvider"
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://interview-prep.vercel.app"),
   title: {
     default: "Interview Prep - Ace Your Technical Interviews",
     template: "%s | Interview Prep",
@@ -21,6 +23,15 @@ export const metadata: Metadata = {
     "software engineering",
   ],
   authors: [{ name: "Interview Prep Team" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Interview Prep",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -42,6 +53,17 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -51,7 +73,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
         <AuthProvider>
-          {children}
+          <PWAProvider>
+            {children}
+          </PWAProvider>
           <Toaster />
         </AuthProvider>
       </body>
