@@ -759,6 +759,11 @@ export function getRelatedQuestions(questionId: string, limit: number = 4): Ques
     .slice(0, limit)
 }
 
+// Get all question IDs for static generation
+export function getAllQuestionIds(): string[] {
+  return questions.map((q) => q.id)
+}
+
 export function filterQuestions(
   filters: {
     search?: string

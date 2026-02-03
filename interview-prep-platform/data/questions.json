@@ -1,0 +1,150 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "title": "Two Sum",
+      "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
+      "company": "Google",
+      "difficulty": "Easy",
+      "categories": ["Arrays"],
+      "tags": ["hash-table", "array"],
+      "solution": {
+        "explanation": "We can solve this problem in one pass using a hash map. As we iterate through the array, for each element we check if the complement (target - current) exists in our hash map. If it does, we found our answer. Otherwise, we add the current element and its index to the hash map.",
+        "code": "function twoSum(nums: number[], target: number): number[] {\n  const map = new Map<number, number>();\n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    if (map.has(complement)) {\n      return [map.get(complement)!, i];\n    }\n    map.set(nums[i], i);\n  }\n  return [];\n}",
+        "language": "typescript",
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      "author": "Admin",
+      "createdAt": "2024-01-15"
+    },
+    {
+      "id": "q2",
+      "title": "Longest Substring Without Repeating Characters",
+      "description": "Given a string s, find the length of the longest substring without repeating characters. A substring is a contiguous non-empty sequence of characters within a string.",
+      "company": "Amazon",
+      "difficulty": "Medium",
+      "categories": ["Strings", "Arrays"],
+      "tags": ["sliding-window", "hash-table", "string"],
+      "solution": {
+        "explanation": "We use a sliding window approach with a Set to track characters in the current window. When we encounter a duplicate, we shrink the window from the left until the duplicate is removed.",
+        "code": "function lengthOfLongestSubstring(s: string): number {\n  const seen = new Set<string>();\n  let maxLength = 0;\n  let left = 0;\n  for (let right = 0; right < s.length; right++) {\n    while (seen.has(s[right])) {\n      seen.delete(s[left]);\n      left++;\n    }\n    seen.add(s[right]);\n    maxLength = Math.max(maxLength, right - left + 1);\n  }\n  return maxLength;\n}",
+        "language": "typescript",
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(min(m, n))"
+      },
+      "author": "Admin",
+      "createdAt": "2024-01-14"
+    },
+    {
+      "id": "q3",
+      "title": "Valid Parentheses",
+      "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if open brackets are closed by the same type of brackets and in the correct order.",
+      "company": "Meta",
+      "difficulty": "Easy",
+      "categories": ["Strings"],
+      "tags": ["stack", "string"],
+      "solution": {
+        "explanation": "We use a stack to match opening and closing brackets. For each opening bracket, we push it onto the stack. For each closing bracket, we check if it matches the top of the stack.",
+        "code": "function isValid(s: string): boolean {\n  const stack: string[] = [];\n  const pairs: Record<string, string> = { ')': '(', '}': '{', ']': '[' };\n  for (const char of s) {\n    if (char in pairs) {\n      if (stack.pop() !== pairs[char]) return false;\n    } else {\n      stack.push(char);\n    }\n  }\n  return stack.length === 0;\n}",
+        "language": "typescript",
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      "author": "Admin",
+      "createdAt": "2024-01-12"
+    },
+    {
+      "id": "q4",
+      "title": "Maximum Subarray",
+      "description": "Given an integer array nums, find the subarray with the largest sum, and return its sum. A subarray is a contiguous non-empty sequence of elements within an array.",
+      "company": "Amazon",
+      "difficulty": "Medium",
+      "categories": ["Arrays", "Dynamic Programming"],
+      "tags": ["array", "divide-conquer", "dynamic-programming"],
+      "solution": {
+        "explanation": "Kadane's algorithm maintains the maximum sum ending at each position. At each step, we decide whether to extend the previous subarray or start a new one.",
+        "code": "function maxSubArray(nums: number[]): number {\n  let maxSum = nums[0];\n  let currentSum = nums[0];\n  for (let i = 1; i < nums.length; i++) {\n    currentSum = Math.max(nums[i], currentSum + nums[i]);\n    maxSum = Math.max(maxSum, currentSum);\n  }\n  return maxSum;\n}",
+        "language": "typescript",
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      },
+      "author": "Admin",
+      "createdAt": "2024-01-10"
+    },
+    {
+      "id": "q5",
+      "title": "Climbing Stairs",
+      "description": "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+      "company": "Apple",
+      "difficulty": "Easy",
+      "categories": ["Dynamic Programming"],
+      "tags": ["dynamic-programming", "memoization"],
+      "solution": {
+        "explanation": "The number of ways to reach step n is the sum of ways to reach step n-1 and n-2. This is essentially the Fibonacci sequence.",
+        "code": "function climbStairs(n: number): number {\n  if (n <= 2) return n;\n  let prev2 = 1;\n  let prev1 = 2;\n  for (let i = 3; i <= n; i++) {\n    const current = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = current;\n  }\n  return prev1;\n}",
+        "language": "typescript",
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      },
+      "author": "Admin",
+      "createdAt": "2024-01-09"
+    },
+    {
+      "id": "q6",
+      "title": "Number of Islands",
+      "description": "Given an m x n 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands.",
+      "company": "Amazon",
+      "difficulty": "Medium",
+      "categories": ["Graphs", "Arrays"],
+      "tags": ["dfs", "bfs", "union-find", "matrix"],
+      "solution": {
+        "explanation": "We use depth-first search to explore each island. When we find a '1', we mark the entire island as visited by changing all connected '1's to '0's, then increment our count.",
+        "code": "function numIslands(grid: string[][]): number {\n  if (!grid.length) return 0;\n  let count = 0;\n  const rows = grid.length;\n  const cols = grid[0].length;\n  function dfs(r: number, c: number) {\n    if (r < 0 || c < 0 || r >= rows || c >= cols || grid[r][c] === '0') return;\n    grid[r][c] = '0';\n    dfs(r + 1, c); dfs(r - 1, c); dfs(r, c + 1); dfs(r, c - 1);\n  }\n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) {\n      if (grid[r][c] === '1') { count++; dfs(r, c); }\n    }\n  }\n  return count;\n}",
+        "language": "typescript",
+        "timeComplexity": "O(m * n)",
+        "spaceComplexity": "O(m * n)"
+      },
+      "author": "Admin",
+      "createdAt": "2024-01-02"
+    },
+    {
+      "id": "q7",
+      "title": "Reverse Linked List",
+      "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+      "company": "Apple",
+      "difficulty": "Easy",
+      "categories": ["Linked Lists"],
+      "tags": ["linked-list", "recursion"],
+      "solution": {
+        "explanation": "We iterate through the list, reversing the direction of each node's next pointer. We keep track of the previous, current, and next nodes.",
+        "code": "function reverseList(head: ListNode | null): ListNode | null {\n  let prev: ListNode | null = null;\n  let current = head;\n  while (current !== null) {\n    const next = current.next;\n    current.next = prev;\n    prev = current;\n    current = next;\n  }\n  return prev;\n}",
+        "language": "typescript",
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      },
+      "author": "Admin",
+      "createdAt": "2024-01-01"
+    },
+    {
+      "id": "q8",
+      "title": "Design a URL Shortener",
+      "description": "Design a URL shortening service like TinyURL. The service should provide short aliases redirecting to long URLs. Consider scalability, analytics, and expiration.",
+      "company": "Uber",
+      "difficulty": "Medium",
+      "categories": ["System Design"],
+      "tags": ["system-design", "hash", "database"],
+      "solution": {
+        "explanation": "Use a hash function to generate short codes. Store URL mappings in a database with base62 encoding. Consider using a distributed key-value store for scalability. Add TTL for expiration and counters for analytics.",
+        "code": "// System Design: URL Shortener\n\n// Components:\n// 1. API Gateway - Rate limiting, authentication\n// 2. Application Server - URL generation, redirection\n// 3. Database - Store URL mappings (NoSQL for scale)\n// 4. Cache - Redis for hot URLs\n\n// URL Generation:\n// - Use base62 encoding (a-z, A-Z, 0-9)\n// - 7 characters = 62^7 = 3.5 trillion unique URLs\n\n// Database Schema:\n// {\n//   shortCode: string (primary key),\n//   originalUrl: string,\n//   createdAt: timestamp,\n//   expiresAt: timestamp,\n//   clickCount: number\n// }",
+        "language": "typescript",
+        "timeComplexity": "O(1) for read/write",
+        "spaceComplexity": "O(n) URLs stored"
+      },
+      "author": "Admin",
+      "createdAt": "2023-12-31"
+    }
+  ],
+  "companies": ["Google", "Amazon", "Microsoft", "Meta", "Apple", "Netflix", "Tesla", "Uber", "Airbnb", "LinkedIn"],
+  "categories": ["Arrays", "Strings", "Trees", "Graphs", "Dynamic Programming", "System Design", "Linked Lists", "Databases", "Behavioral"]
+}
