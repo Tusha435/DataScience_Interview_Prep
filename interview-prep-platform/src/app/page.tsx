@@ -63,7 +63,7 @@ export default function HomePage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative py-20 md:py-32 gradient-hero overflow-hidden">
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 relative z-10">
             <div className="flex flex-col items-center text-center space-y-8">
               <FadeIn delay={0.1}>
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
@@ -118,7 +118,7 @@ export default function HomePage() {
 
           {/* Animated background elements */}
           <motion.div
-            className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"
+            className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.5, 0.3],
@@ -126,7 +126,7 @@ export default function HomePage() {
             transition={{ duration: 8, repeat: Infinity }}
           />
           <motion.div
-            className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"
+            className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl pointer-events-none"
             animate={{
               scale: [1.2, 1, 1.2],
               opacity: [0.3, 0.5, 0.3],
