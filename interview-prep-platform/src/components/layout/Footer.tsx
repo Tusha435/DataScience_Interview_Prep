@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Code2, Github, Linkedin } from "lucide-react"
 
