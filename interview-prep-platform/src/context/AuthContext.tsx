@@ -3,129 +3,43 @@
 import * as React from "react"
 import { User } from "@/types"
 
-// Mock user for demo purposes
-const MOCK_USER: User = {
-  id: "1",
-  email: "demo@example.com",
-  full_name: "Demo User",
+// Static visitor user
+const VISITOR: User = {
+  id: "visitor",
+  name: "Visitor",
   avatar_url: null,
-  bio: "A passionate developer preparing for interviews.",
-  created_at: new Date().toISOString(),
 }
 
 interface AuthContextType {
-  user: User | null
-  isLoading: boolean
-  signIn: (email: string, password: string) => Promise<void>
-  signUp: (email: string, password: string, fullName: string) => Promise<void>
-  signOut: () => Promise<void>
-  signInWithGoogle: () => Promise<void>
-  signInWithGithub: () => Promise<void>
+  user: User
+  visitorCount: number
 }
 
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<User | null>(null)
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [visitorCount, setVisitorCount] = React.useState(0)
 
-  // Check for existing session on mount
   React.useEffect(() => {
-    const checkSession = async () => {
-      // In a real app, check Supabase session here
-      // For demo, check localStorage
-      const savedUser = localStorage.getItem("demo_user")
-      if (savedUser) {
-        setUser(JSON.parse(savedUser))
-      }
-      setIsLoading(false)
-    }
+    // Get visitor count from localStorage or initialize
+    const storedCount = localStorage.getItem("visitor_count")
+    const currentCount = storedCount ? parseInt(storedCount, 10) : 0
 
-    checkSession()
+    // Check if this session already counted
+    const sessionCounted = sessionStorage.getItem("session_counted")
+
+    if (!sessionCounted) {
+      const newCount = currentCount + 1
+      localStorage.setItem("visitor_count", String(newCount))
+      sessionStorage.setItem("session_counted", "true")
+      setVisitorCount(newCount)
+    } else {
+      setVisitorCount(currentCount)
+    }
   }, [])
 
-  const signIn = async (email: string, password: string) => {
-    setIsLoading(true)
-    try {
-      // In a real app, use Supabase auth
-      // For demo, simulate login
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      const demoUser = { ...MOCK_USER, email }
-      setUser(demoUser)
-      localStorage.setItem("demo_user", JSON.stringify(demoUser))
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const signUp = async (email: string, password: string, fullName: string) => {
-    setIsLoading(true)
-    try {
-      // In a real app, use Supabase auth
-      // For demo, simulate signup
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      const newUser: User = {
-        ...MOCK_USER,
-        email,
-        full_name: fullName,
-      }
-      setUser(newUser)
-      localStorage.setItem("demo_user", JSON.stringify(newUser))
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const signOut = async () => {
-    setIsLoading(true)
-    try {
-      // In a real app, use Supabase auth
-      await new Promise((resolve) => setTimeout(resolve, 500))
-      setUser(null)
-      localStorage.removeItem("demo_user")
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const signInWithGoogle = async () => {
-    setIsLoading(true)
-    try {
-      // In a real app, use Supabase OAuth
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      setUser(MOCK_USER)
-      localStorage.setItem("demo_user", JSON.stringify(MOCK_USER))
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const signInWithGithub = async () => {
-    setIsLoading(true)
-    try {
-      // In a real app, use Supabase OAuth
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      setUser(MOCK_USER)
-      localStorage.setItem("demo_user", JSON.stringify(MOCK_USER))
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        signIn,
-        signUp,
-        signOut,
-        signInWithGoogle,
-        signInWithGithub,
-      }}
-    >
+    <AuthContext.Provider value={{ user: VISITOR, visitorCount }}>
       {children}
     </AuthContext.Provider>
   )

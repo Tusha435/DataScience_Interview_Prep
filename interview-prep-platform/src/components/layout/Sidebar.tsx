@@ -6,8 +6,8 @@ import {
   LayoutDashboard,
   FileQuestion,
   Bookmark,
-  User,
   PlusCircle,
+  GitPullRequest,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -29,11 +29,6 @@ const sidebarLinks = [
     label: "Bookmarks",
     icon: Bookmark,
   },
-  {
-    href: "/profile",
-    label: "Profile",
-    icon: User,
-  },
 ]
 
 export function Sidebar() {
@@ -53,7 +48,6 @@ export function Sidebar() {
       <nav className="flex-1 px-4 space-y-1">
         {sidebarLinks.map((link) => {
           const Icon = link.icon
-          const isActive = pathname === link.href || pathname.startsWith(link.href + "/")
 
           return (
             <Link
@@ -61,7 +55,7 @@ export function Sidebar() {
               href={link.href}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                isActive
+                pathname === link.href || pathname.startsWith(link.href + "/")
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
@@ -73,12 +67,22 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="p-4 border-t">
+      <div className="p-4 border-t space-y-4">
+        <Button asChild variant="outline" className="w-full justify-start gap-2">
+          <a
+            href="https://github.com/Tusha435/DataScience_Interview_Prep"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GitPullRequest className="h-4 w-4" />
+            Contribute
+          </a>
+        </Button>
+
         <div className="rounded-lg bg-muted p-4">
-          <h4 className="text-sm font-semibold mb-2">Pro Tip</h4>
+          <h4 className="text-sm font-semibold mb-2">Want to contribute?</h4>
           <p className="text-xs text-muted-foreground">
-            Practice at least 2-3 questions daily to build consistent interview
-            preparation habits.
+            Fork the repo, add questions to data/questions.json, and submit a pull request!
           </p>
         </div>
       </div>

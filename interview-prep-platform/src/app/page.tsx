@@ -127,7 +127,9 @@ export default function HomePage() {
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button size="lg" variant="outline" asChild>
-                      <Link href="/register">Create Free Account</Link>
+                      <a href="https://github.com/Tusha435/DataScience_Interview_Prep" target="_blank" rel="noopener noreferrer">
+                        Contribute on GitHub
+                      </a>
                     </Button>
                   </motion.div>
                 </div>
@@ -401,8 +403,8 @@ export default function HomePage() {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button size="lg" variant="secondary" asChild>
-                      <Link href="/register">
-                        Get Started for Free
+                      <Link href="/questions">
+                        Start Practicing
                         <motion.span
                           animate={{ x: [0, 5, 0] }}
                           transition={{ duration: 1, repeat: Infinity }}
@@ -422,7 +424,9 @@ export default function HomePage() {
                       className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                       asChild
                     >
-                      <Link href="/questions">Browse Questions</Link>
+                      <a href="https://github.com/Tusha435/DataScience_Interview_Prep" target="_blank" rel="noopener noreferrer">
+                        Contribute on GitHub
+                      </a>
                     </Button>
                   </motion.div>
                 </div>
