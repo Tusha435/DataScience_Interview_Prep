@@ -106,10 +106,10 @@ export function Footer() {
               How to Contribute
             </h3>
             <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
-              <li>Fork the repository</li>
-              <li>Edit data/questions.json</li>
-              <li>Add your question</li>
-              <li>Submit a Pull Request</li>
+              <li>Click &quot;Submit Question&quot;</li>
+              <li>Fill in question &amp; answer</li>
+              <li>Submit for review</li>
+              <li>Get added after approval</li>
             </ol>
           </div>
         </div>

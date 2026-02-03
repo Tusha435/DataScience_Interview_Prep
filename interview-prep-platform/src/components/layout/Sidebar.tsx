@@ -40,7 +40,7 @@ export function Sidebar() {
         <Button asChild className="w-full justify-start gap-2">
           <Link href="/questions/new">
             <PlusCircle className="h-4 w-4" />
-            Add Question
+            Submit Question
           </Link>
         </Button>
       </div>
@@ -82,7 +82,7 @@ export function Sidebar() {
         <div className="rounded-lg bg-muted p-4">
           <h4 className="text-sm font-semibold mb-2">Want to contribute?</h4>
           <p className="text-xs text-muted-foreground">
-            Fork the repo, add questions to data/questions.json, and submit a pull request!
+            Use the Submit Question form to share interview questions. Your submission will be reviewed before being added.
           </p>
         </div>
       </div>

@@ -3,8 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { AddQuestionForm } from "@/components/questions/AddQuestionForm"
 
 export const metadata: Metadata = {
-  title: "Add New Question",
-  description: "Share an interview question with the community",
+  title: "Submit a Question",
+  description: "Submit an interview question for review",
 }
 
 export default function NewQuestionPage() {
@@ -12,10 +12,11 @@ export default function NewQuestionPage() {
     <div className="max-w-3xl mx-auto">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Add New Question</CardTitle>
+          <CardTitle className="text-2xl">Submit a Question</CardTitle>
           <CardDescription>
-            Share an interview question you&apos;ve encountered. Help the
-            community by providing detailed descriptions and examples.
+            Share an interview question with the community. Both the question and
+            answer are required. After submission, your question will be reviewed
+            before being added to the platform.
           </CardDescription>
         </CardHeader>
         <CardContent>
